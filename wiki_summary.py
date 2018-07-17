@@ -1,5 +1,5 @@
 # Creator Josue Lopez
-# Mon Jul 16 10:30 PM
+# Mon Jul 16 2018 11:50 PM
 # Python 3.6
 
 import urllib.request
