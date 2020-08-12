@@ -27,13 +27,13 @@ jobs:
     - run: sudo pip install --upgrade setuptools
 
     - name: Install npm bump dependencies modules
-    - run: npm install
+      run: npm install
 
     - name: npm run bump
-    - run: npm run bump
+      run: npm run bump
 
     - name: push commits and release tags to GitHub
-    - run: git push --follow-tags origin ${GITHUB_REF##*/}
+      run: git push --follow-tags origin ${GITHUB_REF##*/}
 
     # - name: Notify job status on Slack
     # - uses: sonots/slack-notice-action@v3
