@@ -30,8 +30,7 @@ jobs:
       run: npm install
     
     - name: Configure Git Action bot Identity
-      run: git config --local user.email "action@github.com"
-      run: git config --local user.name "GitHub Action"
+      run: git config --local user.email "action@github.com" && git config --local user.name "GitHub Action"
 
     - name: npm run bump
       run: npm run bump
