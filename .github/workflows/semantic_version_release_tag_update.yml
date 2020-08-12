@@ -24,8 +24,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install npm bump dependencies modules
-        run: npm install -g bump
+      - name: npm install (necessary for bump to work)
+        run: npm install
       
       - name: Configure Git Action bot Identity
         run: git config --local user.email "action@github.com" && git config --local user.name "GitHub Action"
