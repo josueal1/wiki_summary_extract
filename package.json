@@ -4,7 +4,7 @@
   "description": "Personal Project Python module",
   "main": " ",
   "scripts": {
-    "test": " "
+    "bump": "standard-version"
   },
   "repository": {
     "type": "git",
