@@ -22,7 +22,7 @@ import json
 
 def main():
     """ Main function that runs the CLI app """
-    title = input("Search for a famous name on wikipedia: ")
+    title = input("Search for a famous name on wikipedia with underscore as spaces (e.j. Barrack_Obama): ")
     status = None
     try:
         print('...')
