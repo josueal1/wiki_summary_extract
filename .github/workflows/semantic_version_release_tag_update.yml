@@ -1,0 +1,89 @@
+# Created by Josue Lopez Aug 11, 2020
+name: Update Release Tag with Auto Semantic Versioning
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  create-new-tag-version:
+    name: create-new-tag-version
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Enabling NodeJS
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: sudo apt-get -y -qq update
+    - run: sudo apt-get install python-pip python-dev build-essential
+    - run: sudo pip install --upgrade pip
+    - run: sudo pip install --upgrade setuptools
+
+    - name: Install npm modules
+    - run: npm install
+
+    - name: Deploying
+      timeout-minutes: 30
+      run: |
+          ./scripts/buildInfo.sh
+          ls ./src/
+          if [ "${GITHUB_REF##*/}" == "master" ]; then
+            aws s3 cp s3://vusar-services-deploy-artifacts/vusarServiceAccountKeyDevelopment.json ./conf/vusarServiceAccountKey.json --region us-east-2
+            git add conf/vusarServiceAccountKey.json
+            eb deploy --staged main-development --timeout 25
+          fi
+          if [ "${GITHUB_REF##*/}" == "release" ]; then
+            aws s3 cp s3://vusar-services-deploy-artifacts/vusarServiceAccountKeyProduction.json ./conf/vusarServiceAccountKey.json --region us-east-2
+            git add conf/vusarServiceAccountKey.json
+            eb deploy --staged main-production --timeout 25
+          fi
+    - uses: sonots/slack-notice-action@v3
+      with:
+        status: ${{ job.status }}
+        title: API Deployment
+        text: Attempted Deployment from Branch ${{ github.ref }} and status is ${{ job.status }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required, but GitHub should automatically supply
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+      if: always() # Pick up events even if the job fails or is canceled.
+  test:
+    needs: deploy
+    name: Test
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install newman
+        run: npm install -g newman
+      - name: Run Dev Tests
+        run: newman run scripts/collection.json -e scripts/dev.postman_environment.json
+        if: github.ref == 'refs/heads/master'
+      - name: Run Prod Tests
+        run: newman run scripts/collection.json -e scripts/prod.postman_environment.json
+        if: github.ref == 'refs/heads/release'
+      - uses: sonots/slack-notice-action@v3
+        with:
+          status: ${{ job.status }}
+          title: API Test
+          text: Attempted Tests from Branch ${{ github.ref }} and status is ${{ job.status }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required, but GitHub should automatically supply
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_API_TEST_WEBHOOK_URL }} # required
+        if: always() # Pick up events even if the job fails or is canceled.
