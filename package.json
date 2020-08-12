@@ -1,0 +1,22 @@
+{
+  "name": "wiki_summary_extract",
+  "version": "1.0.0",
+  "description": "Personal Project Python module",
+  "main": " ",
+  "scripts": {
+    "test": " "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josueal1/wiki_summary_extract.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josueal1/wiki_summary_extract/issues"
+  },
+  "homepage": "https://github.com/josueal1/wiki_summary_extract#readme",
+  "devDependencies": {
+    "standard-version": "^8.0.2"
+  }
+}
