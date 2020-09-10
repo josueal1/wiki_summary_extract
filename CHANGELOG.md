@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.2.5 (2020-09-10)
+
+
+### Bug Fixes
+
+* Setup action python 3.x ([82e0d8d](https://github.com/josueal1/wiki_summary_extract/commit/82e0d8df6e8e088e4c2315f4cb93cbb93d1c87ce))
+
 ### 1.2.4 (2020-09-10)
 
 ### 1.2.3 (2020-09-10)
