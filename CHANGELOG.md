@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.2.3 (2020-09-10)
+
+
+### Bug Fixes
+
+* test printing pip version ([e452b92](https://github.com/josueal1/wiki_summary_extract/commit/e452b92b6c7bf8cceba11ec1fd8599664e80ffb2))
+
 ### 1.2.2 (2020-08-12)
 
 ### 1.2.1 (2020-08-12)
