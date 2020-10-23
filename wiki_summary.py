@@ -45,7 +45,9 @@ def main():
             print("Success.")
         else:
             print('Try Again.')
-        print("Done.")
 
+        print("Done.")
+def dummy_func():
+    pass
 if __name__ == '__main__':
     main()
