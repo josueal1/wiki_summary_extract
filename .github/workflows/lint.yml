@@ -40,7 +40,7 @@ jobs:
             pwd
             ls
 
-            ARRAY=($(git diff master testing-python-change --name-only;))
+            ARRAY=($(git diff --name-only;))
             ./src/scripts/lint.sh $ARRAY
             
   
