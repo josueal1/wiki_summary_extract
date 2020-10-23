@@ -27,17 +27,35 @@ jobs:
         run: |
             python -m pip install --upgrade pip
             pip install pylint==2.5.3
+      -
+        name: Get base commit for PRs
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          echo "base_sha=$(git rev-parse origin/${{ github.base_ref }})" >> $GITHUB_ENV 
+          echo "Merging ${{ github.sha }} into ${{ github.base_ref }}"
+      - 
+        name: Get the changed files
+        run: |
+          echo "'$(git diff-tree --no-commit-id --name-only -r ${{ env.base_sha }} ${{ github.sha }})'"
+          echo "Files changed: "
+          changed_files=$(git diff-tree --no-commit-id --name-only -r ${{ env.base_sha }} ${{ github.sha }})
+          echo "${changed_files}"
+          ./src/scripts/lint.sh $changed_files
+
       - 
         name: Lint and Rate Code
         run: |
             # To understand pylint arguments visit link below
             # https://docs.pylint.org/en/1.6.0/features.html
             
+            echo "Global Evaluation of Python Code is currently: "
+
             pylint --exit-zero --jobs=0 ./src --score=y --disable=E1101 \
               --msg-template="{msg_id}: {category}: {path} {line}:{column} {msg}" \
               | awk '$0 ~ /Your code/ || $0 ~ /Global/ {print}'
             
-            ARRAY=($(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} ${{ github.base_refs}};))
-            ./src/scripts/lint.sh $ARRAY
+            
+            
             
   
