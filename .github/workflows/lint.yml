@@ -39,6 +39,8 @@ jobs:
             
             pwd
             ls
-            ./src/scripts/lint.sh
+
+            ARRAY=( $( git diff ${{github.base_ref}} ${{github.head_ref}} --name-only HEAD;))
+            ./src/scripts/lint.sh $ARRAY
             
   
