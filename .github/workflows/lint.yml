@@ -39,8 +39,7 @@ jobs:
         run: |
           changed_files=$(git diff-tree --no-commit-id --name-only -r ${{ env.base_sha }} ${{ github.sha }});
           
-          truncated_sha=${ ${{github.sha}}:1:7}
-          ./src/scripts/lint.sh ${changed_files} ${truncated_sha}
+          ./src/scripts/lint.sh ${changed_files} ${{github.sha}}}
 
       - 
         name: Global Code Rating (PIP8 Standards) 
