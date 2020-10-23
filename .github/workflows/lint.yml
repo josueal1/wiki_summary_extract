@@ -37,11 +37,12 @@ jobs:
       - 
         name: Get the changed files
         run: |
-          echo "Files Changed: $(git diff-tree --no-commit-id --name-only -r ${{ env.base_sha }} ${{ github.sha }})" >> $GITHUB_ENV
+          printf "Files Changed: $(git diff-tree --no-commit-id --name-only -r ${{ env.base_sha }} ${{ github.sha }})\n"
+          
           changed_files=$(git diff-tree --no-commit-id --name-only -r ${{ env.base_sha }} ${{ github.sha }})
           
-          echo "files_changed=$(echo ${changed_files})"
-          echo "files_changed=$(echo ${changed_files})" >> $GITHUB_ENV
+          printf "${changed_files}\n"
+          printf "${changed_files}" >> $GITHUB_ENV
           ./src/scripts/lint.sh ${env.files_changed}
 
       - 
