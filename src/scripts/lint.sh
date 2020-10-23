@@ -8,8 +8,7 @@ if [[ $# > 2 ]];then
 	# Extract array arg passed down via commandline
 	ARRAY=( "$@" )
 	last_idx=$(( ${#ARRAY[@]} - 1 ))
-	current_branch=$((ARRAY[$last_idx]))
-	printf "${ARRAY[$last_idx]} ${current_branch} $2"
+	current_branch=${ARRAY[$last_idx]}
 	unset ARRAY[$last_idx]
 else
 	current_branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p');
