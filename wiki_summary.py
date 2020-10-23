@@ -22,7 +22,8 @@ import json
 
 def main():
     """ Main function that runs the CLI app """
-    title = input("Search for a famous name on wikipedia with underscore as spaces (e.j. Barrack_Obama): ")
+    title = input("Search for a famous name on wikipedia with underscore as \
+        spaces (e.j. Barrack_Obama): ")
     status = None
     try:
         print('...')
@@ -45,6 +46,7 @@ def main():
             print("Success.")
         else:
             print('Try Again.')
+
         print("Done.")
 
 if __name__ == '__main__':
