@@ -1,14 +1,15 @@
 #!/bin/bash
 # Linter are static code analysis tools that flags syntax errors, bugs, style
 
-printf "lint.sh: Starting..."
+printf "\nlint.sh: Starting...\n"
 
 # if this script called and given any commandline args 
-if [[ $# > 1 ]];then
+if [[ $# > 2 ]];then
 	# Extract array arg passed down via commandline
 	ARRAY=( "$@" )
 	last_idx=$(( ${#ARRAY[@]} - 1 ))
 	unset array[$last_idx]
+	current_branch = $2
 else
 	current_branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p');
 
