@@ -37,6 +37,8 @@ jobs:
               --msg-template="{msg_id}: {category}: {path} {line}:{column} {msg}" \
               | awk '$0 ~ /Your code/ || $0 ~ /Global/ {print}'
             
-            ../../src/scripts/lint.sh
+            pwd
+            ls
+            ./src/scripts/lint.sh
             
   
