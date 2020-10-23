@@ -39,7 +39,7 @@ jobs:
         run: |
           changed_files=$(git diff-tree --no-commit-id --name-only -r ${{ env.base_sha }} ${{ github.sha }});
           
-          ./src/scripts/lint.sh ${changed_files} ${GITHUB_REF##*/}
+          ./src/scripts/lint.sh ${changed_files} ${GITHUB_HEAD_REF}
 
       - 
         name: Global Code Rating (PIP8 Standards) 
