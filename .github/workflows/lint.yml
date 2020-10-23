@@ -42,7 +42,6 @@ jobs:
           changed_files=$(git diff-tree --no-commit-id --name-only -r ${{ env.base_sha }} ${{ github.sha }})
           
           printf "${changed_files}\n"
-          # printf "${changed_files}" >> $GITHUB_ENV  HOW to store env???
           ./src/scripts/lint.sh ${changed_files}
 
       - 
@@ -51,7 +50,7 @@ jobs:
             # To understand pylint arguments visit link below
             # https://docs.pylint.org/en/1.6.0/features.html
             
-            echo "Global Evaluation of Python Code is currently: "
+            printf "\nGlobal Evaluation of Python Code in Entire Repo is currently: \n"
 
             pylint --exit-zero --jobs=0 ./src --score=y --disable=E1101 \
               --msg-template="{msg_id}: {category}: {path} {line}:{column} {msg}" \
