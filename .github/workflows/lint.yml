@@ -1,0 +1,40 @@
+# Created by Josue Lopez July 03, 2020
+
+# This workflow will checkout code on the branch with an open pull reuqest
+# It will run a static linter with a single version of Python 3.6
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Lint API
+
+on:
+  pull_request:
+     branches: [ master, release ]
+
+jobs: 
+  build: 
+    runs-on: ubuntu-latest
+    steps: 
+      - 
+        name: Checkout code
+        uses: actions/checkout@v2
+      - 
+        name: Set up Python 3.6
+        uses: actions/setup-python@v1
+        with: 
+          python-version: 3.6
+      - 
+        name: Install Pylint
+        run: |
+            python -m pip install --upgrade pip
+            pip install pylint==2.5.3
+      - 
+        name: Lint and Rate Code
+        run: |
+            # To understand pylint arguments visit link below
+            # https://docs.pylint.org/en/1.6.0/features.html
+            
+            pylint --exit-zero --jobs=0 ./src --score=y --disable=E1101 \
+              --msg-template="{msg_id}: {category}: {path} {line}:{column} {msg}" \
+              | awk '$0 ~ /Your code/ || $0 ~ /Global/ {print}'       
+            
+  
