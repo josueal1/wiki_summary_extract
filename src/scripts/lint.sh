@@ -4,6 +4,9 @@
 # Get list of all files that were Git Added (passed down for github)
 ARRAY=$1
 
+echo "LINT.SH inside!"
+echo "${ARRAY}"
+
 # Get the number of Python files currently Git Added
 NUM_PY_FILES=0
 for i in "${ARRAY[@]}"
