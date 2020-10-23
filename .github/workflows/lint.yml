@@ -37,12 +37,10 @@ jobs:
       - 
         name: Get the changed files
         run: |
-          echo "'$(git diff-tree --no-commit-id --name-only -r ${{ env.base_sha }} ${{ github.sha }})'"
+          echo "files_changed=$(git diff-tree --no-commit-id --name-only -r ${{ env.base_sha }} ${{ github.sha }})" >> $GITHUB_ENV
           echo "Files changed: "
-          changed_files=($(git diff-tree --no-commit-id --name-only -r ${{ env.base_sha }} ${{ github.sha }}));
-          echo "${changed_files}"
-
-          ./src/scripts/lint.sh ${changed_files}
+          echo "${env.files_changed}"
+          ./src/scripts/lint.sh ${env.files_changed}
 
       - 
         name: Lint and Rate Code
