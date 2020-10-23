@@ -37,9 +37,7 @@ jobs:
       - 
         name: Lint Changed Files
         run: |
-          printf "Getting Changed Files: $(git diff-tree --no-commit-id --name-only -r ${{ env.base_sha }} ${{ github.sha }})\n"
-          
-          changed_files=$(git diff-tree --no-commit-id --name-only -r ${{ env.base_sha }} ${{ github.sha }})
+          changed_files=$(git diff-tree --no-commit-id --name-only -r ${{ env.base_sha }} ${{ github.sha }});
           
           printf "${changed_files}\n"
           ./src/scripts/lint.sh ${changed_files}
