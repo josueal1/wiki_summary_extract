@@ -2,7 +2,7 @@
 # Linter are static code analysis tools that flags syntax errors, bugs, style
 
 # Get list of all files that were Git Added
-ARRAY=( $( git diff --staged --name-only HEAD; ) )
+ARRAY=( $( git diff github.base_ref github.head_ref --name-only HEAD; ) )
 
 # Get the number of Python files currently Git Added
 NUM_PY_FILES=0
