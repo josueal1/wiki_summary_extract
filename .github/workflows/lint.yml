@@ -37,7 +37,7 @@ jobs:
       - 
         name: Lint Changed Files
         run: |
-          changed_files=$(git diff-tree --no-commit-id --name-only -r --quiet ${{ env.base_sha }} ${{ github.sha }});
+          changed_files=$(git diff-tree --no-commit-id --name-only -r ${{ env.base_sha }} ${{ github.sha }});
           
           ./src/scripts/lint.sh ${changed_files}
 
