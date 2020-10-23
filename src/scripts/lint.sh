@@ -9,7 +9,7 @@ if [[ $# > 2 ]];then
 	ARRAY=( "$@" )
 	last_idx=$(( ${#ARRAY[@]} - 1 ))
 	unset array[$last_idx]
-	current_branch=$2
+	current_branch=$2;
 else
 	current_branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p');
 
