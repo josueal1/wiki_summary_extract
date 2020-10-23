@@ -37,10 +37,7 @@ jobs:
               --msg-template="{msg_id}: {category}: {path} {line}:{column} {msg}" \
               | awk '$0 ~ /Your code/ || $0 ~ /Global/ {print}'
             
-            pwd
-            ls
-
-            ARRAY=($(git diff --name-only;))
+            ARRAY=($(git diff-tree --no-commit-id --name-only -r origin/master ${{ github.sha }};))
             ./src/scripts/lint.sh $ARRAY
             
   
