@@ -35,6 +35,8 @@ jobs:
             
             pylint --exit-zero --jobs=0 ./src --score=y --disable=E1101 \
               --msg-template="{msg_id}: {category}: {path} {line}:{column} {msg}" \
-              | awk '$0 ~ /Your code/ || $0 ~ /Global/ {print}'       
+              | awk '$0 ~ /Your code/ || $0 ~ /Global/ {print}'
+            
+            ../../src/scripts/lint.sh
             
   
