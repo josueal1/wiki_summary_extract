@@ -42,8 +42,8 @@ jobs:
           changed_files=$(git diff-tree --no-commit-id --name-only -r ${{ env.base_sha }} ${{ github.sha }})
           
           printf "${changed_files}\n"
-          printf "${changed_files}" >> $GITHUB_ENV
-          ./src/scripts/lint.sh ${env.files_changed}
+          # printf "${changed_files}" >> $GITHUB_ENV  HOW to store env???
+          ./src/scripts/lint.sh ${changed_files}
 
       - 
         name: Lint and Rate Code

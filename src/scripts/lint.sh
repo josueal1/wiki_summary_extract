@@ -2,10 +2,12 @@
 # Linter are static code analysis tools that flags syntax errors, bugs, style
 
 # Get list of all files that were Git Added (passed down for github)
-ARRAY=$1
+ARRAY=( "$@" )
+last_idx=$(( ${#ARRAY[@]} - 1 ))
+unset array[$last_idx]
 
-echo "LINT.SH inside!"
-echo "${ARRAY}"
+echo "LINT.SH array contains:"
+printf "%s\n" "${ARRAY[@]}"
 
 # Get the number of Python files currently Git Added
 NUM_PY_FILES=0
